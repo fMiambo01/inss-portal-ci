@@ -1,14 +1,12 @@
 using InssApi.Models;
 using InssApi.Services;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InssApi.Controllers;
 
-/// <summary>M14 — paginação/transação no Service (M8). [Authorize] tranca a rota.</summary>
+/// <summary>M8 + M13 — só HTTP. Paginação/transação no Service (igual Dia 2).</summary>
 [ApiController]
 [Route("api/[controller]")]
-[Authorize]
 public class PedidosController : ControllerBase
 {
     private readonly IPedidoService _service;

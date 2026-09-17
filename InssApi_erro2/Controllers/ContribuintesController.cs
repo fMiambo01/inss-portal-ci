@@ -1,14 +1,12 @@
 using InssApi.Models;
 using InssApi.Services;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InssApi.Controllers;
 
-/// <summary>M14 — mesmos endpoints do Dia 2. [Authorize] = sem Bearer → 401.</summary>
+/// <summary>M8 + M13 — só HTTP (igual Dia 2). Regras no Service. Manhã: sem [Authorize].</summary>
 [ApiController]
 [Route("api/[controller]")]
-[Authorize] // AuthController fica SEM isto — senão ninguém faz login
 public class ContribuintesController : ControllerBase
 {
     private readonly IContribuinteService _service;

@@ -1,12 +1,13 @@
-# Dia 3 · Manhã · back (M13)
+# Dia 3 · Tarde · back (M14)
 
-**Ponto de partida dos alunos:** o `InssApi` da **tarde do Dia 2 (M8)** — camadas, middleware, `inss.db`.
+**Continua** a API da manhã (`manha\back` = CORS + porta 5088).
 
-Hoje só acrescentamos o que o portal precisa:
-- porta fixa `5088` (`launchSettings` → perfil **http**)
-- **CORS** para `http://localhost:5173`
-- sem `UseHttpsRedirection` (em sala)
+Acrescenta:
+- pacote JWT + bloco `Jwt` no `appsettings.json`
+- `AuthController` → `POST /api/auth/login`
+- `[Authorize]` em Contribuintes e Pedidos
+- pipeline: `UseCors` → `UseAuthentication` → `UseAuthorization`
 
-Visual Studio 2026 → abrir esta pasta → F5 → `http://localhost:5088/swagger`
+Login demo: `ana@inss.gov.mz` / `1234`
 
-Front: `..\front` (VS Code → `npm run dev`).
+Visual Studio → esta pasta → F5 → `/swagger`

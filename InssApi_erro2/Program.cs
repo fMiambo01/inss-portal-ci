@@ -8,7 +8,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
-// Dia 4 · manhã · M15 — mesma API do Dia 3 tarde (JWT). Hoje acrescentamos testes.
+// Dia 3 · tarde · M14
+// Continua a API da manhã (CORS). Agora o crachá JWT tranca Contribuintes/Pedidos.
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,11 +26,13 @@ builder.Services.AddScoped<IPedidoRepository, PedidoRepository>();
 builder.Services.AddScoped<IContribuinteService, ContribuinteService>();
 builder.Services.AddScoped<IPedidoService, PedidoService>();
 
+// M13 — CORS (igual à manhã)
 builder.Services.AddCors(o => o.AddPolicy("portal", p =>
     p.WithOrigins("http://localhost:5173")
      .AllowAnyHeader()
      .AllowAnyMethod()));
 
+// M14 — mesma chave em appsettings (Jwt:Chave) assina e confere o token
 var chaveJwt = new SymmetricSecurityKey(
     Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Chave"]!));
 
@@ -58,11 +61,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+// Ordem importa: CORS → Authentication → Authorization (slides M14)
 app.UseCors("portal");
-app.UseAuthentication();
-app.UseAuthorization();
+app.UseAuthentication(); // quem é
+app.UseAuthorization();  // pode?
 app.MapControllers();
 app.Run();
-
-// Preciso para WebApplicationFactory nos testes de integração (M15)
-public partial class Program { }
